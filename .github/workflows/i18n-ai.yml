@@ -13,12 +13,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
       - run: npm ci
       - run: npm run lint:i18n
 
   ai-translate:
     if: github.event_name == 'push'
+    needs: check
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -28,36 +28,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
       - run: npm ci
 
-      - name: Generate missing translations with LLM
+      - name: Generate missing translation suggestions
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          node scripts/check-i18n.mjs || true
-          node -e "
-            const fs = require('node:fs');
-            const zh = JSON.parse(fs.readFileSync('i18n/locales/zh-CN.json','utf8'));
-            const en = fs.readFileSync('i18n/locales/en.yaml','utf8');
-            const flatten = (o,p='') => Object.entries(o).flatMap(([k,v]) => (v && typeof v === 'object' && !Array.isArray(v)) ? flatten(v, p?`${p}.${k}`:k) : [p?`${p}.${k}`:k]);
-            const keys = flatten(zh);
-            const has = new Set(en.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>l.split(':')[0]).filter(Boolean));
-            const miss = keys.filter(k=>!en.includes(k.split('.').slice(-1)[0] + ':'));
-            if (!miss.length) { console.log('No missing keys.'); process.exit(0); }
-            console.log('Missing keys:', miss);
-            const prompt = `Translate missing i18n keys to English. Output YAML object only. Keys: ${JSON.stringify(miss)}`;
-            fetch('https://api.openai.com/v1/responses', {
-              method: 'POST',
-              headers: { 'Content-Type':'application/json', 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` },
-              body: JSON.stringify({ model:'gpt-4.1-mini', input: prompt })
-            }).then(r=>r.json()).then(data=>{
-              const text = data.output_text || '';
-              fs.appendFileSync('i18n/locales/en.yaml', '\n# AI suggestions\n' + text + '\n');
-            }).catch(err=>{ console.error(err); process.exit(1); });
-          "
+          node scripts/generate-i18n-suggestions.mjs
 
       - name: Create PR for translation updates
+        if: ${{ hashFiles('i18n/locales/en.yaml') != '' }}
         uses: peter-evans/create-pull-request@v6
         with:
           branch: chore/ai-i18n-update
@@ -66,5 +46,5 @@ jobs:
             Automated by GitHub Actions + LLM.
 
             - Checked translation key completeness.
-            - Appended AI-generated suggestions for missing keys.
+            - Added AI-generated suggestions for missing keys.
           commit-message: "chore(i18n): append ai translation suggestions"

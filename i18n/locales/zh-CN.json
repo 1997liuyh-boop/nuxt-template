@@ -1,10 +1,63 @@
 {
-  "home": {
-    "title": "Nuxt 4 多语言模板",
-    "subtitle": "内置 OpenClow 接入点、TailwindCSS 与 CI 翻译自动化。",
-    "switchLanguage": "切换语言",
-    "currentLanguage": "当前语言",
-    "openclowStatus": "OpenClow 状态",
-    "loading": "加载中..."
+  "brand": "Yifan Studio",
+  "common": {
+    "switchLanguage": "EN"
+  },
+  "nav": {
+    "home": "首页",
+    "projects": "项目",
+    "timeline": "经历",
+    "contact": "联系"
+  },
+  "hero": {
+    "kicker": "Nuxt 4 / OpenClow / TailwindCSS",
+    "title": "构建现代化、国际化的 Web 体验",
+    "subtitle": "参考个人站点风格实现沉浸式单页，支持中英双语、模块化内容展示与 AI 翻译自动化工作流。",
+    "primaryCta": "查看项目",
+    "secondaryCta": "联系我"
+  },
+  "panel": {
+    "title": "技术栈亮点",
+    "desc": "通过 Nuxt 4 的 App 目录能力，组合 i18n、样式系统与 API 配置，快速形成可扩展模板。"
+  },
+  "projects": {
+    "title": "精选项目",
+    "subtitle": "围绕产品展示、运维自动化和多语言协作设计。",
+    "items": {
+      "studio": {
+        "title": "品牌官网模板",
+        "desc": "深色视觉 + 模块化卡片布局，适配多终端展示。"
+      },
+      "ops": {
+        "title": "OpenClow 接入层",
+        "desc": "通过 runtimeConfig 管理 API 信息，并以 Nitro API 提供统一状态接口。"
+      },
+      "ai": {
+        "title": "翻译自动化流水线",
+        "desc": "提交时自动检查键完整性，缺失项由 AI 协助补全并发起 PR。"
+      }
+    }
+  },
+  "timeline": {
+    "title": "时间线",
+    "items": {
+      "one": {
+        "title": "搭建 Nuxt 4 国际化模板",
+        "desc": "建立 JSON/YAML 混合语言目录结构，支持后续 Layer 继承。"
+      },
+      "two": {
+        "title": "实现品牌化视觉与交互",
+        "desc": "完成头图、锚点导航、项目卡片与时间线模块。"
+      },
+      "three": {
+        "title": "接入 CI + LLM 翻译流程",
+        "desc": "配置 GitHub Actions，自动校验与可选 AI 翻译建议。"
+      }
+    }
+  },
+  "contact": {
+    "title": "保持联系",
+    "subtitle": "欢迎讨论 Nuxt、设计系统与 AI 自动化工程实践。",
+    "email": "邮箱"
   }
 }

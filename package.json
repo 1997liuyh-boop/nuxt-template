@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint:i18n": "node scripts/check-i18n.mjs"
+    "lint:i18n": "node scripts/check-i18n.mjs",
+    "i18n:ai": "node scripts/generate-i18n-suggestions.mjs"
   },
   "dependencies": {
     "nuxt": "^4.0.0",
