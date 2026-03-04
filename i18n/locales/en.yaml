@@ -1,0 +1,7 @@
+home:
+  title: "Nuxt 4 multilingual starter"
+  subtitle: "Built with OpenClow endpoint, TailwindCSS, and CI translation automation."
+  switchLanguage: "Switch language"
+  currentLanguage: "Current locale"
+  openclowStatus: "OpenClow status"
+  loading: "Loading..."
