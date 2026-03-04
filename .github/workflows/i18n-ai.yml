@@ -1,0 +1,50 @@
+name: i18n-check-and-ai-fill
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run lint:i18n
+
+  ai-translate:
+    if: github.event_name == 'push'
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+
+      - name: Generate missing translation suggestions
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          node scripts/generate-i18n-suggestions.mjs
+
+      - name: Create PR for translation updates
+        if: ${{ hashFiles('i18n/locales/en.yaml') != '' }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/ai-i18n-update
+          title: "chore(i18n): AI translation completion"
+          body: |
+            Automated by GitHub Actions + LLM.
+
+            - Checked translation key completeness.
+            - Added AI-generated suggestions for missing keys.
+          commit-message: "chore(i18n): append ai translation suggestions"

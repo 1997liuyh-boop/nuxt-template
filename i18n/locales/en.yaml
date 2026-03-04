@@ -1,0 +1,46 @@
+brand: "Yifan Studio"
+common:
+  switchLanguage: "中文"
+nav:
+  home: "Home"
+  projects: "Projects"
+  timeline: "Timeline"
+  contact: "Contact"
+hero:
+  kicker: "Nuxt 4 / OpenClow / TailwindCSS"
+  title: "Build modern and internationalized web experiences"
+  subtitle: "A personal-site-inspired one-page experience with bilingual support, modular sections, and AI translation automation."
+  primaryCta: "View Projects"
+  secondaryCta: "Contact"
+panel:
+  title: "Stack Highlights"
+  desc: "Use Nuxt 4 app-directory architecture to combine i18n, design system, and API configuration into an extensible starter."
+projects:
+  title: "Featured Work"
+  subtitle: "Designed for product showcases, ops automation, and multilingual collaboration."
+  items:
+    studio:
+      title: "Brand Website Starter"
+      desc: "Dark visual style and modular card layout for responsive showcases."
+    ops:
+      title: "OpenClow Integration Layer"
+      desc: "Manage API information via runtime config and expose a unified status endpoint through Nitro API."
+    ai:
+      title: "Translation Automation Pipeline"
+      desc: "Validate key completeness on commit, then let AI assist with missing translations via PR."
+timeline:
+  title: "Timeline"
+  items:
+    one:
+      title: "Built a Nuxt 4 i18n starter"
+      desc: "Created a mixed JSON/YAML locale structure ready for layer-based inheritance."
+    two:
+      title: "Implemented branded visual interactions"
+      desc: "Delivered hero layout, anchor navigation, project cards, and timeline modules."
+    three:
+      title: "Enabled CI + LLM translation flow"
+      desc: "Set up GitHub Actions for automatic checks and optional AI translation suggestions."
+contact:
+  title: "Let's Connect"
+  subtitle: "Happy to discuss Nuxt, design systems, and AI automation engineering."
+  email: "Email"
